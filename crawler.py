@@ -32,7 +32,7 @@ def crawl():
                 
                 # Write crawled game URLs to file
                 if page_url.startswith("https://www.j-archive.com/showgame.php?game_id="):
-                    with open("j-archive-game-ids-999.txt", "a") as file:
+                    with open("j-archive-game-ids.txt", "a") as file:
                         print(f'Successfully crawled and wrote "{page_url}" to the txt file.')
                         file.write(page_url + "\n")
 
