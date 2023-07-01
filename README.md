@@ -9,6 +9,8 @@ Download Anki here: https://apps.ankiweb.net/
 
 Thorough explanation of spaced repetition software such as Anki here: https://gwern.net/spaced-repetition
 
+Inspiration: Past Jeopardy! contestant Arthur Chu
+
 # j-archive.com/robots.txt
 user-agent: *
 
