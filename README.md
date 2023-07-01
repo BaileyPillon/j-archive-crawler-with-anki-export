@@ -7,7 +7,7 @@ Multithreaded Crawler initalizes a queue and a bloom filter. It also compares ur
 
 Download Anki here: https://apps.ankiweb.net/
 
-Thorough explanation of spaced repetition software such as Anki here: https://gwern.net/spaced-repetition
+Thorough explanation of spaced repetition and spaced repetition software (SRS) such as Anki here: https://gwern.net/spaced-repetition
 
 Inspiration: Past Jeopardy! contestants Arthur Chu and Roger Craig.
 
