@@ -29,6 +29,9 @@ def crawl():
         if page_url.startswith("https://www.j-archive.com/media/"):
             print(f'Skipping..."{page_url}"')
             continue
+        if page_url.startswith("https://www.j-archive.com/wageringcalculator.php?"):
+            print(f'Skipping..."{page_url}"')
+            continue  
             
         try:
             response = requests.get(page_url)
