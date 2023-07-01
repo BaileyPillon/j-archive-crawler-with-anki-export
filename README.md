@@ -1,4 +1,6 @@
 # j-archive-crawler-with-anki-export
+![image](https://github.com/BaileyPillon/j-archive-crawler-with-anki-export/assets/138253619/ddfb2aa9-f2dc-43d2-a1ff-7dc4327a4bbd)
+
 Scrapes all game_id URLs within j-archive.com into a txt file then reads the txt file, scraping category | clue | answer into a csv file to import into anki.
 
 Crawler initalizes a queue and a bloom filter. It also compares url to base url so it does not leave j-archive.com.
@@ -12,16 +14,7 @@ Thorough explanation of spaced repetition software such as Anki here: https://gw
 Inspiration: Past Jeopardy! contestant Arthur Chu
 
 # j-archive.com/robots.txt
-user-agent: *
-
-Crawl-delay: 20
-
-
-User-Agent: bingbot
-
-Crawl-delay: 20
-
-Disallow: /search.php
+![image](https://github.com/BaileyPillon/j-archive-crawler-with-anki-export/assets/138253619/c53678b8-2f2b-455e-a3da-6f48215bbf0b)
 
 # TO DO
 Optimize the crawler more.
