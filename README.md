@@ -14,6 +14,9 @@ Inspiration: Past Jeopardy! contestants Arthur Chu and Roger Craig.
 # EXAMPLE - IBM Watson Episodes
 Included is ibm_watson_episodes_scraper.py as an example. It scrapes the three games (three game IDs) associated with the IBM Watson episodes and exports category | clue | answer to a CSV file to then be imported into Anki. It takes about one minute to scrape these three episodes due to crawl-delay of j-archive.com.
 
+# Clarification
+scrape_cqa_to_csv.py includes category | clue | answer while scrape_cqa_values_to_csv.py includes category | clue | answer | value .
+
 # j-archive.com/robots.txt
 ![image](https://github.com/BaileyPillon/j-archive-crawler-with-anki-export/assets/138253619/c53678b8-2f2b-455e-a3da-6f48215bbf0b)
 
