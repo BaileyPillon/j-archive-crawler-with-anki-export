@@ -7,10 +7,14 @@ Download Anki here: https://apps.ankiweb.net/
 
 # j-archive.com/robots.txt
 user-agent: *
+
 Crawl-delay: 20
 
+
 User-Agent: bingbot
+
 Crawl-delay: 20
+
 Disallow: /search.php
 
 # TO DO
