@@ -3,7 +3,7 @@
 
 Scrapes all game_id URLs within https://www.j-archive.com into a txt file then reads the txt file, scraping the game_ids within to category | clue | answer into a csv file to import into Anki. j-archive is a website that hosts an archive of all Jeopardy! gameshows since the 1980s to the present day.
 
-Multithreaded Crawler initalizes a queue and a bloom filter. It also compares url to base url so it does not leave j-archive.com.
+Multithreaded Crawler initalizes a queue and a bloom filter. It also compares abs_url to base_url so it does not leave j-archive.com.
 
 Download Anki here: https://apps.ankiweb.net/ . For Anki, you will need your cards need to be match the number of fields to the csv file in order for it to import and display properly (if it somehow does import).
 
