@@ -25,6 +25,9 @@ scrape_cqa_to_csv.py includes category | clue | answer while scrape_cqa_values_t
 # j-archive.com/robots.txt
 ![image](https://github.com/BaileyPillon/j-archive-crawler-with-anki-export/assets/138253619/c53678b8-2f2b-455e-a3da-6f48215bbf0b)
 
+# Wagering Strategies
+Some wagering strategies in Jeopardy! include: Expected value, DDs, Final Jeopardy Wagering, Risk Management, Probabilities, which are the more basic ones. Less obvious is: Game Theory, Binomial Distribution in terms of self-evaluating your own accuracy across categories, Kelly Criterion, Bayesian Updating, Mone Carlo Simulations, Regression Analysis, and more. Past that, it is moreso analyzing the game itself as it too difficult if not impossible to analyze beyond that level in real time while having to react to the buzzer with speed and also wracking your brain for the answer to the clue.
+
 # TO DO
 Optimize the crawler more.
 
