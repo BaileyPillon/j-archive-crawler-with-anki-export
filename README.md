@@ -1,7 +1,7 @@
 # j-archive-crawler-with-anki-export
 ![image](https://github.com/BaileyPillon/j-archive-crawler-with-anki-export/assets/138253619/ddfb2aa9-f2dc-43d2-a1ff-7dc4327a4bbd)
 
-Scrapes all game_id URLs within j-archive.com into a txt file then reads the txt file, scraping category | clue | answer into a csv file to import into anki.
+Scrapes all game_id URLs within j-archive.com into a txt file then reads the txt file, scraping the game_ids within to category | clue | answer into a csv file to import into Anki.
 
 Crawler initalizes a queue and a bloom filter. It also compares url to base url so it does not leave j-archive.com.
 
