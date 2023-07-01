@@ -20,9 +20,18 @@ def crawl():
         if page_url in pages_crawled:
             print(f'Already crawled "{page_url}"')
             continue
-        if not page_url.startswith("https://www.j-archive.com/showgame.php?game_id="):
+        if page_url.startswith("https://www.j-archive.com/showgame.php?game_id="):
             print(f'Skipping... "{page_url}"')
             continue
+        if page_url.startswith("https://www.j-archive.com/showplayer.php?player_id="):
+           print(f'Skipping... "{page_url}"')
+           continue
+        if page_url.startswith("https://www.j-archive.com/media/") or page_url.startswith("http://www.j-archive.com/media/"):
+            print(f'Skipping... "{page_url}"')
+            continue        
+        if page_url.startswith("https://www.j-archive.com/wageringcalculator.php?"):
+            print(f'Skipping... "{page_url}"')
+            continue  
           
         try:
             response = requests.get(page_url)
@@ -34,9 +43,10 @@ def crawl():
                 print(page_url)
                 
                 # Write crawled game URLs to file
-                with open("j-archive-game-ids.txt", "a") as file:
-                    print(f'Successfully crawled and wrote "{page_url}" to the txt file.')
-                    file.write(page_url + "\n")
+                if page_url.startswith("https://www.j-archive.com/showgame.php?game_id="):
+                    with open("j-archive-game-ids-99999.txt", "a") as file:
+                        print(f'Successfully crawled and wrote "{page_url}" to the txt file.')
+                        file.write(page_url + "\n")
 
                 # Enqueue same-domain URLs
                 for link in soup.find_all('a', href=True):
