@@ -5,7 +5,7 @@ Scrapes all game_id URLs within https://www.j-archive.com into a txt file then r
 
 Multithreaded Crawler initalizes a queue and a bloom filter. It also compares url to base url so it does not leave j-archive.com.
 
-Download Anki here: https://apps.ankiweb.net/
+Download Anki here: https://apps.ankiweb.net/ . For Anki, you will need your cards need to be match the number of fields to the csv file in order for it to import and display properly (if it somehow does import).
 
 Thorough explanation of spaced repetition and spaced repetition software (SRS) such as Anki here: https://gwern.net/spaced-repetition
 
