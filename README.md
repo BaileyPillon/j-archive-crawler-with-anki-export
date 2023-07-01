@@ -9,7 +9,7 @@ Download Anki here: https://apps.ankiweb.net/
 
 Thorough explanation of spaced repetition software such as Anki here: https://gwern.net/spaced-repetition
 
-Inspiration: Past Jeopardy! contestant Arthur Chu
+Inspiration: Past Jeopardy! contestants Arthur Chu and Roger Craig.
 
 # EXAMPLE - IBM Watson Episodes
 Included is ibm_watson_episodes_scraper.py as an example. It scrapes the three games (three game IDs) associated with the IBM Watson episodes and exports category | clue | answer to a CSV file to then be imported into Anki. It takes about one minute to scrape these three episodes due to crawl-delay of j-archive.com.
