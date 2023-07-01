@@ -31,3 +31,5 @@ Count top 100 most appearing categories & count top 1,000 most appearing categor
 Handle daily doubles, final jeopardy, and media such as .mp4s and .jpgs.
 
 List dependencies here.
+
+Short pictorial Anki tutorial here.
