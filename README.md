@@ -11,6 +11,11 @@ Thorough explanation of spaced repetition and spaced repetition software (SRS) s
 
 Inspiration: Past Jeopardy! contestants Arthur Chu and Roger Craig.
 
+An article by Mental Floss dated February 1st, 2014, about Arthur Chu, reads:
+
+**On Flashcards & Becoming a "Jeopardy! Machine"**
+Chu: As far as preparing for Jeopardy!, I did look up Roger Craig, who was a pretty famous Jeopardy! contestant (and a computer scientist), and who talked about how he developed an algorithm to scrape through the Jeopardy! Archive, which is entirely fan-made, and it's crazy that people put this much energy and intensity into it, archiving all the clues that have run, and then figuring out which categories are most likely to come up in the first round of Jeopardy, which ones come up in Double Jeopardy, which ones in Final Jeopardy. I figured out what knowledge is the most valuable for Jeopardy!, and then matched that up to my own deficits in knowledge, and just hyper-focused on boning up on those specific areas of knowledge.
+
 # EXAMPLE - IBM Watson Episodes
 Included is ibm_watson_episodes_scraper.py as an example. It scrapes the three games (three game IDs) associated with the IBM Watson episodes and exports category | clue | answer to a CSV file to then be imported into Anki. It takes about one minute to scrape these three episodes due to crawl-delay of j-archive.com.
 
