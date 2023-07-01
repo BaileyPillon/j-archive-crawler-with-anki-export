@@ -3,7 +3,7 @@
 
 Scrapes all game_id URLs within j-archive.com into a txt file then reads the txt file, scraping the game_ids within to category | clue | answer into a csv file to import into Anki.
 
-Crawler initalizes a queue and a bloom filter. It also compares url to base url so it does not leave j-archive.com.
+Multithreaded Crawler initalizes a queue and a bloom filter. It also compares url to base url so it does not leave j-archive.com.
 
 Download Anki here: https://apps.ankiweb.net/
 
