@@ -31,3 +31,5 @@ Handle daily doubles, final jeopardy, and media such as .mp4s and .jpgs.
 List dependencies here.
 
 Short pictorial Anki tutorial here.
+
+Statistical analysis on wagering calculations, betting on daily doubles, final jeopardy, and overall gameplay strategy (including contestants over time who have broken the mold over time - overall, general strategies that Jeopardy! constestants and champions have employed over time. 
