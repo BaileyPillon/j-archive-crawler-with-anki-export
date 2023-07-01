@@ -8,4 +8,10 @@ Download Anki here: https://apps.ankiweb.net/
 # TO DO
 Optimize the crawler more.
 
-Respect robots.txt
+Respect robots.txt.
+
+Upload the game_ids scraper.
+
+Count top 100 most appearing categories & count top 1,000 most appearing categories and put those in a txt file along with the count.
+
+Handle daily doubles, final jeopardy, media such as .mp4s and .jpgs.
