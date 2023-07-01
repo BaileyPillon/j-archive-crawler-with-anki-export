@@ -60,9 +60,7 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
     futures = [executor.submit(crawl) for _ in range(10)]
 
 # Program execution time
-execution_time = time.time() - start_time
-print(f"Program executed in {execution_time} seconds.")
-execution_time = execution_time / 60
+execution_time = (time.time() - start_time) / 60
 print(f"Program executed in {execution_time:.2f} minutes.")
 execution_time = execution_time / 60
 print(f"Program executed in {execution_time:.2f} hours.")
