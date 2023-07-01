@@ -7,6 +7,8 @@ Included is ibm_watson_episodes_scraper.py as an example.
 
 Download Anki here: https://apps.ankiweb.net/
 
+Thorough explanation of spaced repetition software such as Anki here: https://gwern.net/spaced-repetition
+
 # j-archive.com/robots.txt
 user-agent: *
 
