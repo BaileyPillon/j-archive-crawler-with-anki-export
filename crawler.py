@@ -8,6 +8,14 @@ import time
 
 base_url = 'https://www.j-archive.com'
 
+# Initialize Queue and Bloom Filter
+pages_to_crawl = Queue()
+pages_to_crawl.put(base_url)
+pages_crawled = BloomFilter(capacity=1000000, error_rate=0.01)
+
+# Start time
+start_time = time.time()
+
 # URL parsing helper function
 def same_domain(url1, url2):
     return urlparse(url1).netloc == urlparse(url2).netloc
@@ -49,14 +57,6 @@ def crawl():
 
         except Exception as e:
             print(f'Failed to crawl "{page_url}": {str(e)}')
-
-# Initialize Queue and Bloom Filter
-pages_to_crawl = Queue()
-pages_to_crawl.put(base_url)
-pages_crawled = BloomFilter(capacity=1000000, error_rate=0.01)
-
-# Start time
-start_time = time.time()
 
 # Start crawling with multiple threads
 with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
