@@ -59,10 +59,6 @@ def crawl():
         except Exception as e:
             print(f'Failed to crawl "{page_url}": {str(e)}')
 
-# Start crawling with multiple threads
-with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-    futures = [executor.submit(crawl) for _ in range(10)]
-
 if __name__ == "__main__":
     # Start crawling with multiple threads
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
