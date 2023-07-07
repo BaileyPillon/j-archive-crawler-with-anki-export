@@ -20,24 +20,28 @@ start_time = time.time()
 def same_domain(url1, url2):
     return urlparse(url1).netloc == urlparse(url2).netloc
 
+# Continues on irrelevant URLs
+def irrelevant_url(page_url):
+    if page_url in pages_crawled:
+        print(f'Already crawled "{page_url}"')
+        return True
+    if page_url.startswith("https://www.j-archive.com/") and not page_url.startswith("https://www.j-archive.com/showgame.php?game_id="): #and not page_url.startswith("http://www.j-archive.com/showgame.php?game_id="):
+        print(f'Skipping... "{page_url}"')
+        return True
+    if page_url.startswith("http://"):
+        print(f'Encountered unsecure URL, skipping: "{page_url}"')
+        return True
+
 # Crawl function for each thread
 def crawl():
     first_iter = True
     while not pages_to_crawl.empty() or first_iter == True:
         page_url = pages_to_crawl.get()
         first_iter = False
-        
-        # Continue if page crawled or page does not end in game_id=
-        if page_url in pages_crawled:
-            print(f'Already crawled "{page_url}"')
-            continue 
-        if page_url.startswith("https://www.j-archive.com/") and not page_url.startswith("https://www.j-archive.com/showgame.php?game_id="):
-            print(f'Skipping... "{page_url}"')
+
+        if irrelevant_url(page_url) == True:
             continue
-        if page_url.startswith("http://"): 
-            print(f'Encountered unsecure URL, skipping... "{page_url}"')
-            continue
-          
+
         try:
             response = requests.get(page_url)
 
