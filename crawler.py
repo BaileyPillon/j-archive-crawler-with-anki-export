@@ -49,7 +49,7 @@ def crawl():
                         print(f'Successfully crawled and wrote "{page_url}" to the txt file.')
                         file.write(page_url + "\n")
 
-                # Enqueue same-domain URLs
+                # Enqueue same-domain URLs (ie, ensure crawler does not leave https://www.j-archive.com)
                 for link in soup.find_all('a', href=True):
                     abs_url = urljoin(page_url, link['href'])
                     if same_domain(abs_url, base_url) and abs_url not in pages_crawled:
