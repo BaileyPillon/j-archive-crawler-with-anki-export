@@ -1,6 +1,8 @@
 # j-archive-crawler-with-anki-export
 ![image](https://github.com/BaileyPillon/j-archive-crawler-with-anki-export/assets/138253619/ddfb2aa9-f2dc-43d2-a1ff-7dc4327a4bbd)
 
+NOTE: Please ethically crawl j-archive by respecting robots.txt. Too many numerous requests will get you temporarily blocked or potentially IP banned.
+
 Scrapes all game_id URLs within https://www.j-archive.com into a txt file then reads the txt file, scraping the game_ids within to category | clue | answer into a csv file to import into Anki. j-archive is a website that hosts an archive of all Jeopardy! gameshows since the 1980s to the present day.
 
 Multithreaded Crawler initalizes a queue and a bloom filter. It also compares abs_url to base_url so it does not leave j-archive.com.
