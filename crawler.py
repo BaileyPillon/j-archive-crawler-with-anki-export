@@ -27,6 +27,7 @@ def crawl():
         page_url = pages_to_crawl.get()
         first_iter = False
         
+        # Continue if page crawled or page does not end in game_id=
         if page_url in pages_crawled:
             print(f'Already crawled "{page_url}"')
             continue 
