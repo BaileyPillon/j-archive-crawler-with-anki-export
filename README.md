@@ -43,4 +43,4 @@ List dependencies here.
 
 Short pictorial Anki tutorial here.
 
-Statistical analysis on wagering calculations, betting on daily doubles, final jeopardy, and overall gameplay strategy (including contestants over time who have broken the mold). In other words, the overall, the strategies that Jeopardy! constestants and champions have employed over time. 
+Statistical analysis on wagering calculations, betting on daily doubles, final jeopardy, tie-breakers, and overall gameplay strategy (including contestants over time who have broken the mold). In other words, the overall, the strategies that Jeopardy! constestants and champions have employed over time. 
