@@ -29,18 +29,14 @@ def crawl():
         page_url = pages_to_crawl.get()
 
         # Respect robots.txt
-        if first_iter == True:
-            pass
-        else:
-            print("Waiting 20 seconds per robots.txt...")
-            time.sleep(20)
+        #if first_iter == True:
+            #pass
+        #else:
+            #print("Waiting 20 seconds per robots.txt...")
+            #time.sleep(20)
 
         first_iter = False
 
-        # Respect robots.txt, disallow scraping search.php
-        if "search.php" in page_url:
-            print(f"Skipping disallowed URL: {page_url}")
-            continue
         if page_url in pages_crawled:
             print(f'Already crawled "{page_url}"')
             continue
