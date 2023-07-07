@@ -24,19 +24,30 @@ def same_domain(url1, url2):
 # Crawl function for each thread
 def crawl():
     first_iter = True
+
     while not pages_to_crawl.empty() or first_iter == True:
         page_url = pages_to_crawl.get()
+
+        # Respect robots.txt
+        if first_iter == True:
+            print("Waiting 20 seconds per robots.txt...")
+            time.sleep(20)
+
         first_iter = False
 
-    if page_url in pages_crawled:
-        print(f'Already crawled "{page_url}"')
-        continue
-    if page_url.startswith("https://www.j-archive.com/") and not page_url.startswith("https://www.j-archive.com/showgame.php?game_id="): #and not page_url.startswith("http://www.j-archive.com/showgame.php?game_id="):
-        print(f'Skipping... "{page_url}"')
-        continue
-    if page_url.startswith("http://"):
-        print(f'Encountered unsecure URL, skipping: "{page_url}"')
-        continue
+        # Respect robots.txt, disallow scraping search.php
+        if "search.php" in url:
+            print(f"Skipping disallowed URL: {url}")
+            continue
+        if page_url in pages_crawled:
+            print(f'Already crawled "{page_url}"')
+            continue
+        if page_url.startswith("https://www.j-archive.com/") and not page_url.startswith("https://www.j-archive.com/showgame.php?game_id="): #and not page_url.startswith("http://www.j-archive.com/showgame.php?game_id="):
+            print(f'Skipping... "{page_url}"')
+            continue
+        if page_url.startswith("http://"):
+            print(f'Encountered unsecure URL, skipping: "{page_url}"')
+            continue
 
         try:
             response = requests.get(page_url)
