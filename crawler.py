@@ -14,24 +14,14 @@ def same_domain(url1, url2):
 
 # Crawl function for each thread
 def crawl():
-    while not pages_to_crawl.empty():
+    first_iter = True
+    while not pages_to_crawl.empty() or first_iter == True:
         page_url = pages_to_crawl.get()
+        first_iter = False
         
         if page_url in pages_crawled:
             print(f'Already crawled "{page_url}"')
-            continue
-        if page_url.startswith("https://www.j-archive.com/suggestcorrection.php?clue_id="):
-            print(f'Skipping... "{page_url}"')
-            continue
-        if page_url.startswith("https://www.j-archive.com/showplayer.php?player_id="):
-           print(f'Skipping... "{page_url}"')
-           continue
-        if page_url.startswith("https://www.j-archive.com/media/") or page_url.startswith("http://www.j-archive.com/media/"):
-            print(f'Skipping... "{page_url}"')
-            continue        
-        if page_url.startswith("https://www.j-archive.com/wageringcalculator.php?"):
-            print(f'Skipping... "{page_url}"')
-            continue  
+            continue 
           
         try:
             response = requests.get(page_url)
