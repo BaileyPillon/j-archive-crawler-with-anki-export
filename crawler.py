@@ -34,6 +34,9 @@ def crawl():
         if page_url.startswith("https://www.j-archive.com/") and not page_url.startswith("https://www.j-archive.com/showgame.php?game_id="): #and not page_url.startswith("http://www.j-archive.com/showgame.php?game_id="):
             print(f'Skipping... "{page_url}"')
             continue
+        if page_url.startswith("http://"): 
+            print(f'Encountered unsecure URL, skipping... "{page_url}"')
+            continue
           
         try:
             response = requests.get(page_url)
