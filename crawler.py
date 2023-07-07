@@ -30,6 +30,8 @@ def crawl():
 
         # Respect robots.txt
         if first_iter == True:
+            pass
+        else:
             print("Waiting 20 seconds per robots.txt...")
             time.sleep(20)
 
