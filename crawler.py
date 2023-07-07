@@ -38,8 +38,8 @@ def crawl():
         first_iter = False
 
         # Respect robots.txt, disallow scraping search.php
-        if "search.php" in url:
-            print(f"Skipping disallowed URL: {url}")
+        if "search.php" in page_url:
+            print(f"Skipping disallowed URL: {page_url}")
             continue
         if page_url in pages_crawled:
             print(f'Already crawled "{page_url}"')
