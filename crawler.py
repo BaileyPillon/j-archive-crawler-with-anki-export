@@ -41,12 +41,11 @@ def crawl():
         if "search.php" in page_url:
             print(f"Skipping disallowed URL: {page_url}")
             continue
-
         if page_url in pages_crawled:
             print(f'Already crawled "{page_url}"')
             continue
         if page_url.startswith("https://www.j-archive.com/") and not page_url.startswith("https://www.j-archive.com/showgame.php?game_id="):
-            pass
+            continue
         if page_url.startswith("http://"):
             print(f'Encountered unsecure URL, skipping: "{page_url}"')
             continue
