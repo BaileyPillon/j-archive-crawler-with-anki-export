@@ -33,7 +33,7 @@ def crawl():
             pass
         else:
             print("Waiting 20 seconds per robots.txt...")
-            time.sleep(20)
+            time.sleep(20) # disable at your own risk, as you will potentially get blocked or even banned.
 
         first_iter = False
 
