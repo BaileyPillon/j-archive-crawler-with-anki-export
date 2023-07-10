@@ -1,4 +1,4 @@
-import requests, time, logging
+import requests, time, logging, posixpath
 from bs4 import BeautifulSoup, ParserRejectedMarkup
 from urllib.parse import urljoin, urlparse
 from queue import Queue
