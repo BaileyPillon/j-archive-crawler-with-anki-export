@@ -16,7 +16,23 @@ class Crawler():
         self.pages_to_crawl.put(self.base_url)
         self.pages_crawled = BloomFilter(capacity=1000000, error_rate=0.01)
         self.unsecure_url = "http://"
+        self.unsecure_url = "http://"
 
+    def normalize_url(self, url):
+        scheme, netloc, path, params, query, fragment = urlparse(url)
+
+        netloc = netloc.lower()  # Domain normalization
+        path = posixpath.normpath(unquote(path))  # Path normalization, with case normalization and percent-encoding normalization
+
+        # Query normalization (sort keys and percent-encoding normalization)
+        query_dict = parse_qs(query)
+        normalized_query = urlencode(sorted((k, sorted(v)) for k, v in query_dict.items()), doseq=True)
+
+        # Fragment normalization: remove it
+        fragment = ''
+
+        return urlunparse((scheme, netloc, path, params, normalized_query, fragment))
+        
     def same_domain(self, url1, url2):
         return urlparse(url1).netloc == urlparse(url2).netloc
 
@@ -27,6 +43,7 @@ class Crawler():
         first_iter = True
         while not crawler.pages_to_crawl.empty() or first_iter == True:
             first_iter = False
+            url = self.normalize_url(url)
             if "search.php" in url:
                 print(f"Skipping disallowed URL: {url}")
                 continue
