@@ -5,7 +5,6 @@ from queue import Queue
 from pybloom_live import BloomFilter
 from concurrent.futures import ThreadPoolExecutor
 
-
 session = requests.Session()
 first_iter = True
 max_retries = 10
@@ -17,7 +16,6 @@ class Crawler():
         self.pages_to_crawl.put(self.base_url)
         self.pages_crawled = BloomFilter(capacity=1000000, error_rate=0.01)
         self.unsecure_url = "http://"
-
 
     def same_domain(self, url1, url2):
         return urlparse(url1).netloc == urlparse(url2).netloc
@@ -38,7 +36,6 @@ class Crawler():
             if url.startswith(self.unsecure_url):
                 print(f'Encountered unsecure URL, skipping: "{url}"')
                 continue
-
         try:
             response = session.get(url, timeout=5)                
             if "text/html" in response.headers["content-type"]:
@@ -57,13 +54,12 @@ class Crawler():
                 abs_url = urljoin(url, link['href'])
                 if self.same_domain(abs_url, self.base_url) and abs_url not in self.pages_crawled and self.filter_url(abs_url):
                     self.pages_to_crawl.put(abs_url)
-
+                    
         except requests.exceptions.RequestException as e:
             logging.error(f'Failed to crawl "{url}": {str(e)}')
             time.sleep(3)
 
 if __name__ == "__main__":
-
     crawler = Crawler()
     start_time = time.time()
     with ThreadPoolExecutor(max_workers=10) as executor:
