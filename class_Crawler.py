@@ -26,7 +26,7 @@ class Crawler():
         # Query normalization (sort keys and percent-encoding normalization)
         query_dict = parse_qs(query)
         normalized_query = urlencode(sorted((k, sorted(v)) for k, v in query_dict.items()), doseq=True)
-        fragment = ''
+        fragment = '' # A URL fragment is also known as a hash (#), this removes the fragment, avoiding crawling the page again
 
         return urlunparse((scheme, netloc, path, params, normalized_query, fragment))
         
