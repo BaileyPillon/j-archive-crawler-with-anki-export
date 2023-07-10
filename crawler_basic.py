@@ -5,11 +5,13 @@ from queue import Queue
 from pybloom_live import BloomFilter
 import concurrent.futures
 import time
+from futures3.thread import ThreadPoolExecutor
+from futures3.process import ProcessPoolExecutor
 
-base_url = 'https://www.j-archive.com'
+base_url = "https://www.j-archive.com"
 
 # Initialize Queue and Bloom Filter
-pages_to_crawl = Queue()
+pages_to_crawl = Queue() 
 pages_to_crawl.put(base_url)
 pages_crawled = BloomFilter(capacity=1000000, error_rate=0.01)
 
@@ -31,9 +33,9 @@ def crawl():
         # Respect robots.txt
         if first_iter == True:
             pass
-        else:
-            print("Waiting 20 seconds per robots.txt...")
-            time.sleep(20) # disable at your own risk, as you will potentially get blocked or even banned.
+       # else:
+            #print("Waiting 20 seconds per robots.txt...")
+            #time.sleep(20)
 
         first_iter = False
 
@@ -76,8 +78,9 @@ def crawl():
 
 if __name__ == "__main__":
     # Start crawling with multiple threads
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-        futures = [executor.submit(crawl) for _ in range(10)]
+    with ThreadPoolExecutor(workers=10) as executor:
+        # submit the task
+        future = executor.submit(crawl)
     
     # Program execution time
     execution_time = (time.time() - start_time) / 60
