@@ -51,9 +51,9 @@ class Crawler():
     
             # Enqueue same-domain URLs (ie, ensure crawler does not leave https://www.j-archive.com)
             for link in soup.find_all('a', href=True):
-                url = urljoin(url, link['href'])
-                if self.same_domain(url, self.base_url) and url not in self.pages_crawled and self.filter_url(url):
-                    self.pages_to_crawl.put(url)
+                abs_url = urljoin(url, link['href'])
+                if self.same_domain(abs_url, self.base_url) and abs_url not in self.pages_crawled and self.filter_url(abs_url):
+                    self.pages_to_crawl.put(abs_url)
                     
         except requests.exceptions.RequestException as e:
             logging.error(f'Failed to crawl "{url}": {str(e)}')
