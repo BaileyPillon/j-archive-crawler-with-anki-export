@@ -1,4 +1,4 @@
-import requests, time, logging, posixpath
+import requests, time, logging, posixpath, concurrent.futures, urllib.request
 from bs4 import BeautifulSoup, ParserRejectedMarkup
 from urllib.parse import urlunparse, urlencode, parse_qs, quote, unquote, urlparse, urljoin
 from queue import Queue
@@ -16,20 +16,21 @@ class Crawler():
         self.pages_to_crawl.put(self.base_url)
         self.pages_crawled = BloomFilter(capacity=1000000, error_rate=0.01)
         self.unsecure_url = "http://"
-        
+
     def normalize_url(self, url):
         scheme, netloc, path, params, query, fragment = urlparse(url)
 
         netloc = netloc.lower()  # Domain normalization
-        path = posixpath.normpath(unquote(path.lower()))  # Normalization - path normalization, case norm, and percent-encoding norm
+        path = posixpath.normpath(unquote(path.lower()))  # Path normalization, with case norm and percent-encoding norm
 
         # Query normalization (sort keys and percent-encoding normalization)
         query_dict = parse_qs(query)
         normalized_query = urlencode(sorted((k, sorted(v)) for k, v in query_dict.items()), doseq=True)
-        fragment = '' # A URL fragment is also known as a hash (#), this removes the fragment, avoiding crawling the page again
+
+        fragment = ''
 
         return urlunparse((scheme, netloc, path, params, normalized_query, fragment))
-        
+
     def same_domain(self, url1, url2):
         return urlparse(url1).netloc == urlparse(url2).netloc
 
@@ -37,19 +38,18 @@ class Crawler():
         return url.startswith("https://www.j-archive.com/showgame.php?game_id=")
 
     def crawl(self, url):
-        first_iter = True
-        while not crawler.pages_to_crawl.empty() or first_iter == True:
-            first_iter = False
-            url = self.normalize_url(url)
-            if "search.php" in url:
-                print(f"Skipping disallowed URL: {url}")
-                continue
-            if url in self.pages_crawled:
-                print(f'Already crawled "{url}"')
-                continue
-            if url.startswith(self.unsecure_url):
-                print(f'Encountered unsecure URL, skipping: "{url}"')
-                continue
+        first_iter = False
+        url = self.normalize_url(url)
+        if "search.php" in url:
+            print(f"Skipping disallowed URL: {url}")
+            return
+        if url in self.pages_crawled:
+            print(f'Already crawled "{url}"')
+            return
+        if url.startswith(self.unsecure_url):
+            print(f'Encountered unsecure URL, skipping: "{url}"')
+            return
+
         try:
             response = session.get(url, timeout=5)                
             if "text/html" in response.headers["content-type"]:
@@ -62,13 +62,13 @@ class Crawler():
                 self.pages_crawled.add(url)
                 print(f'Successfully crawled and wrote "{url}".')
                 logging.info(f'Crawled: {url}')
-    
+
             # Enqueue same-domain URLs (ie, ensure crawler does not leave https://www.j-archive.com)
             for link in soup.find_all('a', href=True):
                 abs_url = urljoin(url, link['href'])
                 if self.same_domain(abs_url, self.base_url) and abs_url not in self.pages_crawled and self.filter_url(abs_url):
                     self.pages_to_crawl.put(abs_url)
-                    
+
         except requests.exceptions.RequestException as e:
             logging.error(f'Failed to crawl "{url}": {str(e)}')
             time.sleep(3)
@@ -81,7 +81,14 @@ if __name__ == "__main__":
            url = crawler.pages_to_crawl.get()
            url = crawler.normalize_url(url)
            executor.submit(crawler.crawl, url)
+           try:
+                data = url.result()
+           except Exception as exc:
+                print('%r generated an exception: %s' % (url, exc))
+           else:
+                print('%r page is %d bytes' % (url, len(data)))
     execution_time = (time.time() - start_time) / 60
     logging.info(f"Program executed in {execution_time:.2f} minutes.")
     execution_time = execution_time / 60
     logging.info(f"Program executed in {execution_time:.2f} hours.")
+
