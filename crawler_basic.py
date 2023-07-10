@@ -78,7 +78,7 @@ def crawl():
 
 if __name__ == "__main__":
     # Start crawling with multiple threads
-    with ThreadPoolExecutor(workers=10) as executor:
+    with ThreadPoolExecutor(max_workers=10) as executor:
         # submit the task
         future = executor.submit(crawl)
     
