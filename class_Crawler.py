@@ -80,6 +80,7 @@ if __name__ == "__main__":
     with ThreadPoolExecutor(max_workers=10) as executor:
        while not crawler.pages_to_crawl.empty() or first_iter == True:
            url = crawler.pages_to_crawl.get()
+           url = crawler.normalize_url(url)
            executor.submit(crawler.crawl, url)
     execution_time = (time.time() - start_time) / 60
     logging.info(f"Program executed in {execution_time:.2f} minutes.")
