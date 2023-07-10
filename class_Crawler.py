@@ -21,13 +21,12 @@ class Crawler():
         scheme, netloc, path, params, query, fragment = urlparse(url)
 
         netloc = netloc.lower()  # Domain normalization
-        path = posixpath.normpath(unquote(path))  # Path normalization, with case normalization and percent-encoding normalization
+        path = posixpath.normpath(unquote(path))  # Normalization - path normalization, case norm, and percent-encoding norm
 
         # Query normalization (sort keys and percent-encoding normalization)
         query_dict = parse_qs(query)
         normalized_query = urlencode(sorted((k, sorted(v)) for k, v in query_dict.items()), doseq=True)
 
-        # Fragment normalization: remove it
         fragment = ''
 
         return urlunparse((scheme, netloc, path, params, normalized_query, fragment))
