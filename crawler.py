@@ -16,7 +16,13 @@ class Crawler():
         self.pages_to_crawl.put(self.base_url)
         self.pages_crawled = BloomFilter(capacity=1000000, error_rate=0.01)
         self.unsecure_url = "http://"
-
+        
+    def adaptive_throttle(self, response_time):
+        if response_time > 1:
+            self.request_interval *= 1.5  # Slow down
+        else:
+            self.request_interval *= 0.9  # Speed up
+            
     def normalize_url(self, url):
         scheme, netloc, path, params, query, fragment = urlparse(url)
 
