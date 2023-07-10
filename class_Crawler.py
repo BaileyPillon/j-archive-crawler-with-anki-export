@@ -66,7 +66,6 @@ if __name__ == "__main__":
        while not crawler.pages_to_crawl.empty() or first_iter == True:
            url = crawler.pages_to_crawl.get()
            executor.submit(crawler.crawl, url)
-
     execution_time = (time.time() - start_time) / 60
     logging.info(f"Program executed in {execution_time:.2f} minutes.")
     execution_time = execution_time / 60
