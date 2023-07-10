@@ -1,6 +1,6 @@
 import requests, time, logging, posixpath
 from bs4 import BeautifulSoup, ParserRejectedMarkup
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urlunparse, urlencode, parse_qs, quote, unquote, urlparse, urljoin
 from queue import Queue
 from pybloom_live import BloomFilter
 from concurrent.futures import ThreadPoolExecutor
