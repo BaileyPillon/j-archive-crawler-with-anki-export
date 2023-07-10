@@ -16,8 +16,7 @@ class Crawler():
         self.pages_to_crawl.put(self.base_url)
         self.pages_crawled = BloomFilter(capacity=1000000, error_rate=0.01)
         self.unsecure_url = "http://"
-        self.unsecure_url = "http://"
-
+        
     def normalize_url(self, url):
         scheme, netloc, path, params, query, fragment = urlparse(url)
 
