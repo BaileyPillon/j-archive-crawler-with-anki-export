@@ -14,7 +14,7 @@ class Crawler():
         self.desired_urls = "https://www.j-archive.com/showgame.php?game_id="
         self.pages_to_crawl = Queue()
         self.pages_to_crawl.put(self.base_url)
-        self.pages_crawled = BloomFilter(capacity=10000000, error_rate=0.001)
+        self.pages_crawled = BloomFilter(capacity=1000000, error_rate=0.01)
         self.unsecure_url = "http://"
         self.request_interval = 1.0
         self.min_request_interval = 0.5
@@ -120,19 +120,15 @@ class Crawler():
 
 if __name__ == "__main__":
     crawler = Crawler()
+    logging.basicConfig(filename='j-archive_game_ids.log', level=logging.INFO)
+    logging.info('Started')
     start_time = time.time()
     with ThreadPoolExecutor(max_workers=10) as executor:
        while not crawler.pages_to_crawl.empty() or first_iter == True:
             url = crawler.pages_to_crawl.get()
             url = crawler.normalize_url(url)
             executor.submit(crawler.crawl, url)
-           #try:
-               #data = url.result()
-           #except Exception as exc:
-               #print('%r generated an exception: %s' % (url, exc))
-           #else:
-               #print('%r page is %d bytes' % (url, len(data)))
-            # Program execution time
+    logging.info('Finished')
     if crawler.pages_to_crawl.empty():
         execution_time = (time.time() - start_time) / 60
         print((f"Program executed in {execution_time:.2f} minutes."))
