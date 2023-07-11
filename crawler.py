@@ -36,7 +36,7 @@ class Crawler():
             range(500, 600): 2.0,
             range(400, 500): 1.5,
         }
-        # Use a lambda function for multiplier according to response status code
+        # Lambda function as a multipler for response times according to status codes, may be increased or decreased
         multiplier = next((multiplier for status_range, multiplier in status_code_ranges.items() if response.status_code in status_range), 0.9)
         self.request_interval *= multiplier
 
