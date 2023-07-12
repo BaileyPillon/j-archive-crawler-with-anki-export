@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, Mock
-from crawler7 import Crawler
+from crawler import Crawler
 
 class TestCrawler(unittest.TestCase):
     def setUp(self):
