@@ -108,18 +108,18 @@ class Crawler:
                 return
             self.pages_crawled.add(url) 
 
-            if "showgame" in url:
-                print(f'Crawled desired URL: {url}')
-                logging.info(f'{url}')
-            else:
-                print(f'Crawled: {url}')
-            
-            # Mark the URL as crawled
-            self.pages_crawled.add(url)
-            
-        # Respect robots.txt
-        #print("Waiting 20 seconds...") # Uncomment this
-        #time.sleep(20) # Uncomment this
+        if "showgame" in url:
+            print(f'Crawled desired URL: {url}')
+            logging.info(f'{url}')
+        else:
+            print(f'Crawled: {url}')
+        
+        # Mark the URL as crawled
+        self.pages_crawled.add(url)
+        
+    # Respect robots.txt
+    #print("Waiting 20 seconds...") # Uncomment this
+    #time.sleep(20) # Uncomment this
 
     def start_crawling(self):
         futures = set()
