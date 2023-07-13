@@ -14,7 +14,7 @@ class Crawler:
         self.base_url = base_url
         self.pages_to_crawl = queue.Queue()
         self.pages_to_crawl.put(self.base_url)
-        self.pages_crawled = BloomFilter(capacity=1000000, error_rate=0.1)  # Using a Bloom filter here
+        self.pages_crawled = BloomFilter(capacity=1000000, error_rate=0.01)  # Using a Bloom filter here
         self.session = requests.Session()
         self.unsecure_url = 'http://'
         self.request_interval = 1.0
