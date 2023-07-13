@@ -1,17 +1,12 @@
-import requests
+import requests, queue, time, logging, os, posixpath
 from bs4 import BeautifulSoup
-#from urllib.parse import urlparse, urljoin
-import queue
 from pybloom_live import BloomFilter
 #from urllib.robotparser import RobotFileParser
-import logging
 from requests.exceptions import RequestException
-import time
 from concurrent.futures import ThreadPoolExecutor
-import os
 from concurrent.futures import wait
 from urllib.parse import urlunparse, urlencode, parse_qs, quote, unquote, urlparse, urljoin
-import posixpath
+
 
 
 
