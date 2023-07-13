@@ -7,12 +7,8 @@ from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import wait
 from urllib.parse import urlunparse, urlencode, parse_qs, quote, unquote, urlparse, urljoin
 
-
-
-
 # Set up logging
 logging.basicConfig(filename='j-archive-game-ids.log', level=logging.INFO)
-
 
 class Crawler:
     def __init__(self, base_url):
