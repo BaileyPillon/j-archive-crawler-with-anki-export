@@ -131,7 +131,7 @@ class Crawler:
         if soup is not None:
             self.extract_links(url, soup)
 
-            # Log a special message if this is a desired URL
+            # Log if URL contains is a game_id URL
             if "showgame" in url:
                 print(f'Crawled desired URL: {url}')
                 logging.info(f'Crawled desired URL: {url}')
