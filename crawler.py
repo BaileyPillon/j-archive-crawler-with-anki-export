@@ -103,6 +103,10 @@ class Crawler:
         soup = self.get_page_content(url)
         if soup is not None:
             self.extract_links(url, soup)
+        with self.crawled_urls_lock:
+            if url in self.pages_crawled:
+                return
+            self.pages_crawled.add(url) 
 
             if "showgame" in url:
                 print(f'Crawled desired URL: {url}')
