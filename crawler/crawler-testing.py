@@ -16,9 +16,7 @@ import posixpath
 
 
 # Set up logging
-logging.basicConfig(filename='j-archive-game-ids-limited_editionv2.log', level=logging.INFO)
-
-#session = requests.Session()
+logging.basicConfig(filename='j-archive-game-ids.log', level=logging.INFO)
 
 
 class Crawler:
