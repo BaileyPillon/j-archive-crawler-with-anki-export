@@ -1,4 +1,4 @@
-import requests, queue, time, logging, posixpath
+import requests, queue, time, logging, posixpath, threading
 from bs4 import BeautifulSoup
 from pybloom_live import BloomFilter
 from requests.exceptions import RequestException
@@ -21,6 +21,7 @@ class Crawler:
         self.min_request_interval = 0.5
         self.max_request_interval = 5.0
         self.max_retries = 3
+        self.lock = threading.Lock()
 
     def get_page_content(self, url):
         try:
