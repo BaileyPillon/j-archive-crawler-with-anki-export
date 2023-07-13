@@ -67,7 +67,6 @@ class Crawler:
 
         return normalized_url
 
-
     def extract_links(self, url, soup):
         # Extract links from the page
         for link in soup.find_all('a', href=True):
@@ -143,7 +142,6 @@ class Crawler:
                     future = executor.submit(self.crawl, url)
                     futures.add(future)
         wait(futures)  # Wait for all threads to complete
-
 
 def main():
     start_time = time.time() # Start timer
