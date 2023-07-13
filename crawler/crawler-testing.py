@@ -16,7 +16,7 @@ import posixpath
 
 
 # Set up logging
-logging.basicConfig(filename='j-archive-game-ids-v18.log', level=logging.INFO)
+logging.basicConfig(filename='j-archive-game-ids-limited_editionv2.log', level=logging.INFO)
 
 #session = requests.Session()
 
@@ -55,27 +55,28 @@ class Crawler:
             logging.error(f'Failed to crawl "{url}": {str(e)}')
         return None
 
-    def handle_response(self, response):
-        if response.status_code == 200:
-            return BeautifulSoup(response.text, 'html.parser')
-        elif response.status_code == 404:
-            logging.info(f"404 error at {response.url}")
-        else:
-            logging.info(f"{response.status_code} error at {response.url}")
-        return None
-
     def normalize_url(self, url):
-        scheme, netloc, path, params, query, fragment = urlparse(url)
+        # Parse the url
+        parts = urlparse(url)
 
-        netloc = netloc.lower()
-        path = posixpath.normpath(unquote(path.lower()))
+        # Normalize path by removing duplicate slashes, "." and ".."
+        path = parts.path
+        if '//' in path or '/./' in path or '/..' in path:
+            path = posixpath.normpath(path)
 
-        query_dict = parse_qs(query)
-        normalized_query = urlencode(sorted((k, sorted(v)) for k, v in query_dict.items()), doseq=True)
+        # Normalize query by sorting it
+        query = parts.query
+        if query:
+            query_dict = parse_qs(query)
+            sorted_query = sorted((k, sorted(v)) for k, v in query_dict.items())
+            query = urlencode(sorted_query, doseq=True)
 
-        fragment = ''
+        # Recreate the URL
+        normalized_url = urlunparse(
+            (parts.scheme, parts.netloc, path, parts.params, query, parts.fragment)
+        )
 
-        return urlunparse((scheme, netloc, path, params, normalized_query, fragment))
+        return normalized_url
 
 
     def extract_links(self, url, soup):
@@ -83,11 +84,9 @@ class Crawler:
         for link in soup.find_all('a', href=True):
             link_url = link['href']
 
-            # Ensure the URL is absolute
             if not bool(urlparse(link_url).netloc):
                 link_url = urljoin(url, link_url)
 
-            # Add the URL to the queue if it's not already crawled
             if link_url not in self.pages_crawled:
                 self.pages_to_crawl.put(link_url)
 
@@ -117,7 +116,7 @@ class Crawler:
         return True    
  
     def crawl(self, url):
-        #url = self.normalize_url(url)
+        url = self.normalize_url(url)
         if not self.should_crawl(url):
             return
         #if not self.robot_parser.can_fetch('*', url):
@@ -131,13 +130,12 @@ class Crawler:
         if soup is not None:
             self.extract_links(url, soup)
 
-            # Log a special message if this is a desired URL
             if "showgame" in url:
                 print(f'Crawled desired URL: {url}')
-                logging.info(f'Crawled desired URL: {url}')
+                logging.info('f{url}')
             else:
                 print(f'Crawled: {url}')
-                logging.info(f'Crawled: {url}')
+                #logging.info(f'Crawled: {url}')
             
             # Mark the URL as crawled
             self.pages_crawled.add(url)
