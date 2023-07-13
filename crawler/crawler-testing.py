@@ -1,14 +1,13 @@
-import requests, queue, time, logging, os, posixpath
+import requests, queue, time, logging, posixpath
 from bs4 import BeautifulSoup
 from pybloom_live import BloomFilter
-#from urllib.robotparser import RobotFileParser
 from requests.exceptions import RequestException
 from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import wait
-from urllib.parse import urlunparse, urlencode, parse_qs, quote, unquote, urlparse, urljoin
+from urllib.parse import urlunparse, urlencode, parse_qs, urlparse, urljoin
 
 # Set up logging
-logging.basicConfig(filename='j-archive-game-ids.log', level=logging.INFO)
+logging.basicConfig(filename='j-archive-game-ids-limited_editionv91.log', level=logging.INFO)
 
 class Crawler:
     def __init__(self, base_url):
@@ -21,11 +20,7 @@ class Crawler:
         self.request_interval = 1.0
         self.min_request_interval = 0.5
         self.max_request_interval = 5.0
-        self.max_retries = 10
-        #self.session.headers.update({'User-Agent': 'My Crawler/1.0'})
-        #self.robot_parser = RobotFileParser()
-        #self.robot_parser.set_url(urljoin(base_url, 'robots.txt'))
-        #self.robot_parser.read()
+        self.max_retries = 3
 
     def get_page_content(self, url):
         try:
@@ -71,32 +66,29 @@ class Crawler:
         # Extract links from the page
         for link in soup.find_all('a', href=True):
             link_url = link['href']
-
+            
+            # Converts a relative link to an absolute link
             if not bool(urlparse(link_url).netloc):
                 link_url = urljoin(url, link_url)
 
             if link_url not in self.pages_crawled:
                 self.pages_to_crawl.put(link_url)
 
-    def store_data(self, url, response):
-        # Save page content to a file
-        os.makedirs('data', exist_ok=True)
-        with open(f'data/{urlparse(url).path.replace("/", "_")}.html', 'w') as f:
-            f.write(response.text)
-
     def same_domain(self, url1, url2):
+        """ Enqueue the same domain """
         return urlparse(url1).netloc == urlparse(url2).netloc
  
     def should_crawl(self, url):
+        url = self.normalize_url(url)
         if "search.php" in url:
-            print(f"Skipping disallowed URL: {url}")
+            print(f"Skipping disallowed URL: {url}") # Respect robots.txt
             return False
         if url in self.pages_crawled:
             print(f'Already crawled "{url}"')
             return False
         if url.startswith("https://www.j-archive.com/") and not url.startswith("https://www.j-archive.com/showgame.php?game_id="):
             return False
-        if url.startswith("http://"):
+        if url.startswith(self.unsecure_url):
             print(f'Encountered unsecure URL, skipping: "{url}"')
             return False
         if not self.same_domain(self.base_url, url):
@@ -104,15 +96,14 @@ class Crawler:
         return True    
  
     def crawl(self, url):
-        url = self.normalize_url(url)
         if not self.should_crawl(url):
             return
-        #if not self.robot_parser.can_fetch('*', url):
-            #logging.info(f"Blocked by robots.txt: {url}")
-            #return
-        if self.same_domain(self.base_url, url): 
-            #logging.info(f'Adding "{url}" to the queue.')
-            self.pages_to_crawl.put(url)
+        #if self.same_domain("https://www.j-archive.com/", url): 
+            #if url in self.pages_crawled:
+                #return
+            #else:
+                #print(f'Adding "{url}" to the queue.')
+               # self.pages_to_crawl.put(url) # add url to queue)
 
         soup = self.get_page_content(url)
         if soup is not None:
@@ -120,15 +111,16 @@ class Crawler:
 
             if "showgame" in url:
                 print(f'Crawled desired URL: {url}')
-                logging.info('f{url}')
+                logging.info(f'{url}')
             else:
                 print(f'Crawled: {url}')
-                #logging.info(f'Crawled: {url}')
             
             # Mark the URL as crawled
             self.pages_crawled.add(url)
             
-            #time.sleep(0.5) 
+        # Respect robots.txt
+        #print("Waiting 20 seconds...") # Uncomment this
+        #time.sleep(20) # Uncomment this
 
     def start_crawling(self):
         futures = set()
@@ -144,7 +136,7 @@ class Crawler:
         wait(futures)  # Wait for all threads to complete
 
 def main():
-    start_time = time.time() # Start timer
+    start_time = time.time() # Start program execution timer
     base_url = 'https://www.j-archive.com'
     crawler = Crawler(base_url)
     crawler.start_crawling()
