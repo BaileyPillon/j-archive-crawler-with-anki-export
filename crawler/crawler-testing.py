@@ -152,11 +152,8 @@ def main():
     # Program execution time
     execution_time = (time.time() - start_time) / 60
     print((f"Program executed in {execution_time:.2f} minutes."))
-    #logging.info(f"Program executed in {execution_time:.2f} minutes.")
     execution_time = execution_time / 60
     print((f"Program executed in {execution_time:.2f} hours."))
-    #logging.info(f"Program executed in {execution_time:.2f} hours.")
-
 
 if __name__ == "__main__":
     main()
