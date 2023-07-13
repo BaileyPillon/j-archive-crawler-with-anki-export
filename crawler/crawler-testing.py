@@ -98,12 +98,6 @@ class Crawler:
     def crawl(self, url):
         if not self.should_crawl(url):
             return
-        #if self.same_domain("https://www.j-archive.com/", url): 
-            #if url in self.pages_crawled:
-                #return
-            #else:
-                #print(f'Adding "{url}" to the queue.')
-               # self.pages_to_crawl.put(url) # add url to queue)
 
         soup = self.get_page_content(url)
         if soup is not None:
