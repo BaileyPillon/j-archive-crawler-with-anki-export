@@ -72,7 +72,7 @@ class Crawler:
                 link_url = urljoin(url, link_url)
 
             if link_url not in self.pages_crawled:
-                self.pages_to_crawl.put(link_url)
+                self.pages_to_crawl.put(link_url) # Queue link to be crawled
 
     def same_domain(self, url1, url2):
         """ Enqueue the same domain """
