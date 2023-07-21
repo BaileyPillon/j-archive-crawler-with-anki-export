@@ -117,9 +117,9 @@ class Crawler:
         # Mark the URL as crawled
         self.pages_crawled.add(url)
         
-    # Respect robots.txt
-    #print("Waiting 20 seconds...") # Uncomment this
-    #time.sleep(20) # Uncomment this
+        # Respect robots.txt
+        #print("Waiting 20 seconds...") # Uncomment this
+        #time.sleep(20) # Uncomment this
 
     def start_crawling(self):
         futures = set()
