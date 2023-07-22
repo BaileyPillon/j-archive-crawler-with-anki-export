@@ -81,20 +81,21 @@ class Crawler:
  
     def should_crawl(self, url):
         url = self.normalize_url(url)
+        print(f'normalized_url: {url}')
         if "search.php" in url:
             print(f"Skipping disallowed URL: {url}") # Respect robots.txt
             return False
         if url in self.pages_crawled:
             print(f'Already crawled "{url}"')
             return False
+        if url.startswith("https://www.j-archive.com/") and not url.startswith("https://www.j-archive.com/showgame.php?game_id="):
+            return False
         if url.startswith(self.unsecure_url):
             print(f'Encountered unsecure URL, skipping: "{url}"')
             return False
-        if not url.startswith("https://www.j-archive.com/"):
-            return self.same_domain(self.base_url, url)
-        if url.startswith("https://www.j-archive.com/") and not url.startswith("https://www.j-archive.com/showgame.php?game_id="):
+        if not self.same_domain(self.base_url, url):
             return False
-        return True    
+        return True     
  
     def crawl(self, url):
         if not self.should_crawl(url):
