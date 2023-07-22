@@ -107,6 +107,7 @@ class Crawler:
         with self.crawled_urls_lock:
             if url in self.pages_crawled:
                 return
+            # Mark the URL as crawled
             self.pages_crawled.add(url) 
 
         if "showgame" in url:
@@ -115,8 +116,7 @@ class Crawler:
         else:
             print(f'Crawled: {url}')
         
-        # Mark the URL as crawled
-        self.pages_crawled.add(url)
+
         time.sleep(1)
         
         # Respect robots.txt
