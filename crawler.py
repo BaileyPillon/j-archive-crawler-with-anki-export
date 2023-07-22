@@ -92,6 +92,8 @@ class Crawler:
             return False
         if not url.startswith("https://www.j-archive.com/"):
             return self.same_domain(self.base_url, url)
+        if url.startswith("https://www.j-archive.com/") and not url.startswith("https://www.j-archive.com/showgame.php?game_id="):
+            return False
         return True    
  
     def crawl(self, url):
@@ -114,6 +116,7 @@ class Crawler:
         
         # Mark the URL as crawled
         self.pages_crawled.add(url)
+        time.sleep(1)
         
         # Respect robots.txt
         #print("Waiting 20 seconds...") # Uncomment this
